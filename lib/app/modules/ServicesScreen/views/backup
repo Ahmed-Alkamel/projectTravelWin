@@ -1,0 +1,167 @@
+import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+import 'package:projectgetx/app/modules/widgets/default_widget.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import '../../../models/basic/trips.dart';
+import '../../../translations/locale.dart';
+import '../../widgets/container_rect.dart';
+import '../controllers/services_screen_controller.dart';
+import '../widget_local.dart';
+
+class ServicesScreenView extends GetView<ServicesScreenController> {
+  const ServicesScreenView({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+          child: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          SliverAppBar(
+            // pinned: true,
+            forceElevated: innerBoxIsScrolled,
+            backgroundColor: Get.theme.colorScheme.secondary,
+            expandedHeight: ((MediaQuery.of(context).size.height) / 4),
+            iconTheme: IconThemeData(color: Get.theme.primaryColor),
+            centerTitle: true,
+            floating: true,
+            automaticallyImplyLeading: false,
+            leading: Container(
+              width: Size.infinite.width,
+              color: Get.theme.colorScheme.primary,
+              child: Row(
+                children: [
+                  IconButton(
+                      icon: Container(
+                        decoration:
+                            BoxDecoration(shape: BoxShape.circle, boxShadow: [
+                          BoxShadow(
+                            color: Get.theme.primaryColor.withOpacity(0.5),
+                            blurRadius: 20,
+                          ),
+                        ]),
+                        child: Icon(Icons.menu, color: Get.theme.hintColor),
+                      ),
+                      onPressed: () {
+                        Get.back();
+                      }),
+                ],
+              ),
+            ),
+            flexibleSpace: FlexibleSpaceBar(
+              background: ClipPath(
+                clipper: WaveClipperOne(flip: true),
+                child: Container(
+                    color: Get.theme.colorScheme.primary,
+                    width: MediaQuery.of(context).size.width,
+                    height: ((MediaQuery.of(context).size.height) / 3) * 1,
+                    child: Obx(
+                      () => controller.isload.value
+                          ? Container()
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    dropdownItemCategray(),
+                                    dropdwonItemWayCategory(),
+                                    dropdwonItemCompany()
+                                  ],
+                                ),
+                              ],
+                            ),
+                    )),
+              ),
+            ),
+          ),
+        ],
+        body: Obx(
+          () => controller.isload.value
+              ? Container(
+                  color: Get.theme.colorScheme.secondary,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : Container(
+                  color: Get.theme.colorScheme.secondary,
+                  height: ((MediaQuery.of(context).size.height) / 3) * 2 + 20,
+                  child: ListView.builder(
+                    itemCount: controller.resultTripCategory.length,
+                    itemBuilder: (context, index) => TripCard(
+                      trip: controller.resultTripCategory[index],
+                    ),
+                  ),
+                ),
+        ),
+      )),
+    );
+  }
+
+  DefaultDropDown dropdownItemCategray() {
+    return DefaultDropDown(
+      hint: Text(
+        LocaleKeys.TripScreen_selectCategeory.tr,
+        style: Get.textTheme.titleSmall,
+      ),
+      items: controller.category.value!.subCategory!
+          .map((element) => DropdownMenuItem(
+              value: element,
+              child: Text(
+                element.nameCategoryMain!,
+                style: Get.textTheme.titleSmall,
+              )))
+          .toList(),
+      value: controller.selectCategory.value,
+      onChanged: (p0) {
+        controller.selectDropDown(1, p0);
+      },
+    );
+  }
+
+  Widget dropdwonItemWayCategory() {
+    return controller.way.value == null
+        ? Container()
+        : DefaultDropDown(
+            hint: Text(
+              LocaleKeys.TripScreen_selectWay.tr,
+              style: Get.textTheme.titleSmall,
+            ),
+            items: controller.way.value!.subCategory!
+                .map((element) => DropdownMenuItem(
+                    value: element,
+                    child: Text(
+                      element.nameCategoryMain!,
+                      style: Get.textTheme.titleSmall,
+                    )))
+                .toList(),
+            value: controller.selectWay.value,
+            onChanged: (p0) {
+              controller.selectDropDown(2, p0);
+            },
+          );
+  }
+
+  Widget dropdwonItemCompany() {
+    return DefaultDropDown(
+      hint: Text(
+        'حسب الشركة',
+        style: Get.textTheme.titleSmall,
+      ),
+      items: controller.company
+          .map((element) => DropdownMenuItem(
+              value: element,
+              child: Text(
+                element.name!,
+                style: Get.textTheme.titleSmall,
+              )))
+          .toList(),
+      value: controller.selectCompany.value,
+      onChanged: (p0) {
+        controller.selectDropDown(3, p0);
+      },
+    );
+  }
+}

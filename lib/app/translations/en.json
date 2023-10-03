@@ -1,0 +1,74 @@
+{
+  "buttons": {
+    "login": "Login",
+    "sign_in": "Sign-in",
+    "logout": "Logout",
+    "sign_in_fb": "Sign-in with Facebook",
+    "sign_in_google": "Sign-in with Google",
+    "sign_in_apple": "Sign-in with Apple"
+  },
+  "titlePage": {
+    "SearchTrip": "Search Trip",
+    "CustomerInf": "personal Infomation",
+    "TripInBookingTrip": "Trip"
+  },
+  "trip": {
+    "fromCity": "fromCity",
+    "ToCity": "ToCity",
+    "price": "price",
+    "company": "company",
+    "servicesName": "servicesName",
+    "method": "method",
+    "ltinerary": "ltinerary",
+    "dateAndTimeSeats": "dateAndTimeSeats",
+    "numberTripComany": "numberTripComany",
+    "discont": "discont"
+  },
+  "TripScreen": {
+    "selectCategeory": "Category",
+    "selectWay": "way Trip"
+  },
+  "personalData": {
+    "Adult": "Adult",
+    "childern": "childern",
+    "baby": "baby",
+    "gender": "gender",
+    "male": "male",
+    "female": "female"
+  },
+  "bottomSheetBooking": {
+    "countAdult": "Count Adult",
+    "countChildern": "Count Childern",
+    "countBaby": "Count Baby"
+  },
+  "authScrean": {
+    "login": "Login",
+    "sign_in": "Sign-in",
+    "logout": "Logout",
+    "sign_in_fb": "Sign-in with Facebook",
+    "sign_in_google": "Sign-in with Google",
+    "sign_in_apple": "Sign-in with Apple",
+    "email_or_phone_hint": "Enter Email or Phone Number ",
+    "identity": "id",
+    "pasword": "Passowrd",
+    "pasword_hint": "Enter your Password",
+    "aleardyAcount": "I have Acount",
+    "createAcount": "Create Acount",
+    "or": "Or"
+  },
+  "createAcount": {
+    "name": "name",
+    "nameHint": "name Hint",
+    "phoneNumber": "phoneNumber",
+    "phoneNumberHint": "phoneNumberHint",
+    "email": "email",
+    "emailHint": "emailHint",
+    "password": "password",
+    "passwordHint": "passwordHint",
+    "passwordConform": "passwordConform",
+    "passwordConformHint": "passwordConformHint"
+  },
+  "validator": {
+    "requerment": "هذا الحقل مطلوب"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "buttons": {
+    "login": "تسجيل دخول",
+    "sign_in": "تسجيل حساب",
+    "logout": "تسجيل خروج",
+    "sign_in_fb": "تسجيل دخول فيسبوك",
+    "sign_in_google": "تسجيل دخول جوحل",
+    "sign_in_apple": "تسجيل دخول ابل"
+  },
+
+  "titlePage": {
+    "SearchTrip": "البحث عن رحلة",
+    "CustomerInf": "المعلومات الشخصية",
+    "TripInBookingTrip": "الرحلة"
+  },
+  "trip": {
+    "fromCity": "من مدينة",
+    "ToCity": "الى مدينة",
+    "price": "السعر",
+    "company": "الشركة",
+    "servicesName": "اسم الخدمة",
+    "method": "نوع الرحلة",
+    "ltinerary": "خط الرحلة",
+    "dateAndTimeSeats": "الشركة",
+    "numberTripComany": "رقم الرحلة",
+    "discont": "التخفيض"
+  },
+  "TripScreen": {
+    "selectCategeory": "اختيار التصنيف",
+    "selectWay": "طريقة الرحلة"
+  },
+  "personalData": {
+    "Adult": "البالغين",
+    "childern": "الاطفال",
+    "baby": "الرضع",
+    "gender": "الجنس",
+    "male": "ذكر",
+    "female": "انثي"
+  },
+  "bottomSheetBooking": {
+    "countAdult": "عدد البالغين",
+    "countChildern": "عدد الاطفال",
+    "countBaby": "عدد الرضع"
+  },
+  "authScrean": {
+    "login": "تسجيل دخول",
+    "sign_in": "تسجيل حساب",
+    "logout": "تسجيل خروج",
+    "sign_in_fb": "تسجيل دخول فيسبوك",
+    "sign_in_google": "تسجيل دخول جوحل",
+    "sign_in_apple": "تسجيل دخول ابل",
+    "email_or_phone_hint": "ادخل اللإميل او رقم الهاتف",
+    "identity": "المعرف",
+    "pasword": "كلمة السر",
+    "pasword_hint": "ادخل كلمة السر",
+    "aleardyAcount": "لدي حساب بالفعل",
+    "createAcount": "انشاء حساب",
+    "or": "او"
+  },
+  "createAcount": {
+    "name": "الاسم",
+    "nameHint": "ادخل الاسم",
+    "phoneNumber": "رقم الجوال",
+    "phoneNumberHint": "ادخل رقم الجوال",
+    "email": "البريد الاكتروني",
+    "emailHint": "ادخل البريد الالكتروني",
+    "password": "كلمة السر",
+    "passwordHint": "ادخل كلمة السر",
+    "passwordConform": "تاكيد كلمة السر",
+    "passwordConformHint": "ادخل تاكيد كلمة السر"
+  },
+  "validator": {
+    "requerment": "هذا الحقل مطلوب"
+  }
+}
