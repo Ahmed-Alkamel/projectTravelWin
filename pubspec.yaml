@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   # date_time_picker: 2.1.0
-  dio: ^4.0.6
+  dio: ^5.0.0
   flutter_custom_clippers: ^2.1.0
   # flutter_neumorphic: ^3.2.0
   flutter_svg: ^2.0.16
