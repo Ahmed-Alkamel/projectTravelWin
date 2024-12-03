@@ -60,11 +60,7 @@ class NotificationsService extends GetxService {
             playSound: true,
           ),
         ],
-        channelGroups: [
-          NotificationChannelGroup(
-              channelGroupKey: 'localNotifictionApp',
-              channelGroupName: 'groub1 ')
-        ],
+        channelGroups: [NotificationChannelGroup(channelGroupKey: 'localNotifictionApp', channelGroupName: 'groub1 ')],
         debug: false);
 
     await AwesomeNotifications().isNotificationAllowed().then((value) async {
@@ -81,25 +77,21 @@ class NotificationsService extends GetxService {
     return this;
   }
 
-  static Future<void> onActionReceivedMethod(
-      ReceivedAction receivedAction) async {
+  static Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
     debugPrint('onActionReceivedMethod');
     final payload = receivedAction.payload ?? {};
     if (payload['navigate'] == 'true') {}
   }
 
-  static Future<void> onDismissActionReceivedMethod(
-      ReceivedAction receivedAction) async {
+  static Future<void> onDismissActionReceivedMethod(ReceivedAction receivedAction) async {
     debugPrint('onDismissActionReceivedMethod');
   }
 
-  static Future<void> onNotificationCreatedMethod(
-      ReceivedNotification receivedNotification) async {
+  static Future<void> onNotificationCreatedMethod(ReceivedNotification receivedNotification) async {
     debugPrint('onNotificationCreatedMethod');
   }
 
-  Future<void> onNotificationDisplayedMethod(
-      ReceivedNotification receivedNotification) async {
+  Future<void> onNotificationDisplayedMethod(ReceivedNotification receivedNotification) async {
     debugPrint('onNotificationDisplayedMethod');
   }
 
@@ -115,7 +107,7 @@ class NotificationsService extends GetxService {
       final List<NotificationActionButton>? actionButton,
       final bool scheduled = false,
       required final String channalKey,
-      final int? interval,
+      final Duration? interval,
       required int id,
       final bool fullScreenIntent = false}) async {
     assert(!scheduled || (scheduled && interval != null));
@@ -137,11 +129,7 @@ class NotificationsService extends GetxService {
         actionButtons: actionButton,
         schedule: scheduled
             ? NotificationInterval(
-                allowWhileIdle: true,
-                interval: interval,
-                timeZone:
-                    await AwesomeNotifications().getLocalTimeZoneIdentifier(),
-                preciseAlarm: true)
+                allowWhileIdle: true, interval: interval, timeZone: await AwesomeNotifications().getLocalTimeZoneIdentifier(), preciseAlarm: true)
             : null);
   }
 

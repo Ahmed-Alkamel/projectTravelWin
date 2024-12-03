@@ -59,31 +59,24 @@ class ReportDesktopController extends GetxController {
 
   get minmumTrip => 1.toDouble();
 
-  DataGridSource get daataSorceCustomRequest => CustomerRequestDataSourc(
-      isWebOrDesktop: true, ordersCollection: allRequest);
+  DataGridSource get daataSorceCustomRequest => CustomerRequestDataSourc(isWebOrDesktop: true, ordersCollection: allRequest);
 
   List<UserRequest> get getuniqRequst => ReportHelper.uniqueData(
       data: allRequest,
       condatioin: (value, collection) {
-        return !collection
-            .any((element) => element.serviceName == value.serviceName);
+        return !collection.any((element) => element.serviceName == value.serviceName);
       });
 
-  DataGridSource get dataSourceGridTripInfo => TripInfoDataSource(
-      isWebOrDesktop: true, ordersCollection: allTripsRequest);
-  DataGridSource get dataSourceGridCityInfo => CityDataSource(
-      isWebOrDesktop: true, ordersCollection: getAllCitiesFromAndTo);
+  DataGridSource get dataSourceGridTripInfo => TripInfoDataSource(isWebOrDesktop: true, ordersCollection: allTripsRequest);
+  DataGridSource get dataSourceGridCityInfo => CityDataSource(isWebOrDesktop: true, ordersCollection: getAllCitiesFromAndTo);
 
 // List<GridColumn>  get dataColumnDataGrid => CustomerRequestDataSourc(
 //       isWebOrDesktop: true, ordersCollection: allRequest).;
   @override
   void onInit() async {
-    tooltipBehavior =
-        TooltipBehavior(enable: true, header: '', canShowMarker: false);
+    tooltipBehavior = TooltipBehavior(enable: true, header: '', canShowMarker: false);
     trackballBehavior = TrackballBehavior(
-        enable: true,
-        activationMode: ActivationMode.singleTap,
-        tooltipSettings: const InteractiveTooltip(format: 'point.x : point.y'));
+        enable: true, activationMode: ActivationMode.singleTap, tooltipSettings: const InteractiveTooltip(format: 'point.x : point.y'));
 
     _reportRepository = ReportRepository();
     await loadData();
@@ -109,19 +102,15 @@ class ReportDesktopController extends GetxController {
     allRequest.sort((x, y) {
       if (x.requestTrip != null) {
         if (y.requestTrip != null) {
-          return x.requestTrip!.bookingTime!
-              .compareTo(y.requestTrip!.bookingTime!);
+          return x.requestTrip!.bookingTime!.compareTo(y.requestTrip!.bookingTime!);
         } else {
-          return x.requestTrip!.bookingTime!
-              .compareTo(y.requestServicePublic!.bookingServicesDate!);
+          return x.requestTrip!.bookingTime!.compareTo(y.requestServicePublic!.bookingServicesDate!);
         }
       } else {
         if (y.requestTrip != null) {
-          return x.requestServicePublic!.bookingServicesDate!
-              .compareTo(y.requestTrip!.bookingTime!);
+          return x.requestServicePublic!.bookingServicesDate!.compareTo(y.requestTrip!.bookingTime!);
         } else {
-          return x.requestServicePublic!.bookingServicesDate!
-              .compareTo(y.requestServicePublic!.bookingServicesDate!);
+          return x.requestServicePublic!.bookingServicesDate!.compareTo(y.requestServicePublic!.bookingServicesDate!);
         }
       }
     });
@@ -139,8 +128,7 @@ class ReportDesktopController extends GetxController {
     super.onClose();
   }
 
-  List<Trips> get getAllTripFromInfo =>
-      allTripsRequest.map((e) => e.trip!).toList();
+  List<Trips> get getAllTripFromInfo => allTripsRequest.map((e) => e.trip!).toList();
   List<PieSeries<City, String>>? dataFromCity() {
     return getfromCityUniqe
         .map((e) => PieSeries<City, String>(
@@ -152,9 +140,7 @@ class ReportDesktopController extends GetxController {
             yValueMapper: (datum, index) {
               int total = getAllTripFromInfo.length;
 
-              int count = getAllTripFromInfo
-                  .where((element) => element.fromCity!.id == datum.id)
-                  .length;
+              int count = getAllTripFromInfo.where((element) => element.fromCity!.id == datum.id).length;
 
               var resluts = (count / total) * 100;
               print('object');
@@ -166,8 +152,7 @@ class ReportDesktopController extends GetxController {
         .toList();
   }
 
-  List<PieSeries<StateRequest, String>>? dataServiceRequestState(
-      List<StateRequest> states, UserRequest request) {
+  List<CircularSeries<StateRequest, String>>? dataServiceRequestState(List<StateRequest> states, UserRequest request) {
     return getfromCityUniqe
         .map((e) => PieSeries<StateRequest, String>(
             explode: true,
@@ -180,17 +165,9 @@ class ReportDesktopController extends GetxController {
                 }),
             xValueMapper: (datum, index) => datum.name as String,
             yValueMapper: (datum, index) {
-              int total = allRequest
-                  .where(
-                      (element) => element.serviceName == request.serviceName)
-                  .toList()
-                  .length;
+              int total = allRequest.where((element) => element.serviceName == request.serviceName).toList().length;
 
-              int count = allRequest
-                  .where((element) =>
-                      element.serviceName == request.serviceName &&
-                      element.state!.id == datum.id)
-                  .length;
+              int count = allRequest.where((element) => element.serviceName == request.serviceName && element.state!.id == datum.id).length;
 
               var resluts = (count / total) * 100;
               print('object');
@@ -219,7 +196,7 @@ class ReportDesktopController extends GetxController {
     // print('object');
   }
 
-  List<PieSeries<City, String>>? dataToCity() {
+  List<CircularSeries<City, String>>? dataToCity() {
     return getToCityUniqe
         .map((e) => PieSeries<City, String>(
             explode: true,
@@ -230,9 +207,7 @@ class ReportDesktopController extends GetxController {
             yValueMapper: (datum, index) {
               int total = getAllTripFromInfo.length;
 
-              int count = getAllTripFromInfo
-                  .where((element) => element.toCity!.id == datum.id)
-                  .length;
+              int count = getAllTripFromInfo.where((element) => element.toCity!.id == datum.id).length;
 
               var resluts = (count / total) * 100;
               // print('object');
@@ -254,10 +229,7 @@ class ReportDesktopController extends GetxController {
         dataSource: allTripsRequest,
         xValueMapper: (datum, index) => datum.dateGo,
         yValueMapper: (datum, index) {
-          int count = allTripsRequest
-              .where((element) => element.dateGo == datum.dateGo)
-              .toList()
-              .length;
+          int count = allTripsRequest.where((element) => element.dateGo == datum.dateGo).toList().length;
           print('fljsd');
           return count;
         },
@@ -273,17 +245,11 @@ class ReportDesktopController extends GetxController {
         dataSource: ReportHelper.uniqueData(
             data: allRequestResault,
             condatioin: (value, collection) {
-              return allRequestResault
-                  .any((element) => element.serviceName == value.serviceName);
+              return allRequestResault.any((element) => element.serviceName == value.serviceName);
             }),
         xValueMapper: (sales, _) => sales.serviceName,
         yValueMapper: (sales, _) =>
-            (allRequestResault
-                    .where(
-                        (element) => element.serviceName == sales.serviceName)
-                    .toList()
-                    .length /
-                allRequestResault.length) *
+            (allRequestResault.where((element) => element.serviceName == sales.serviceName).toList().length / allRequestResault.length) *
             100.roundToDouble(),
         dataLabelSettings: DataLabelSettings(
             labelPosition: ChartDataLabelPosition.outside,
@@ -298,19 +264,14 @@ class ReportDesktopController extends GetxController {
     if (value.id == -1) {
       allRequestResault = allRequest;
     } else {
-      allRequestResault =
-          allRequest.where((element) => element.state!.id == value.id).toList();
+      allRequestResault = allRequest.where((element) => element.state!.id == value.id).toList();
     }
 
     update(['updateDataReportCustomer']);
   }
 
   List<StateRequest> getStateByRequest(UserRequest value) {
-    return allRequest
-        .where((element) => element.serviceName == value.serviceName)
-        .toList()
-        .map((e) => e.state!)
-        .toList();
+    return allRequest.where((element) => element.serviceName == value.serviceName).toList().map((e) => e.state!).toList();
   }
 
   void updataReportState() {
@@ -325,29 +286,21 @@ class ReportDesktopController extends GetxController {
       final PdfPage page = document.pages.add();
       final Size pageSize = page.getClientSize();
 
-      final Uint8List fontData =
-          File('fonts/AdobeArabic.ttf').readAsBytesSync();
-      final PdfFont font =
-          PdfTrueTypeFont(fontData, 16, style: PdfFontStyle.regular);
-      page.graphics.drawRectangle(
-          bounds: Rect.fromLTWH(0, 0, pageSize.width, pageSize.height),
-          pen: PdfPen(PdfColor(0, 0, 0)));
+      final Uint8List fontData = File('fonts/AdobeArabic.ttf').readAsBytesSync();
+      final PdfFont font = PdfTrueTypeFont(fontData, 16, style: PdfFontStyle.regular);
+      page.graphics.drawRectangle(bounds: Rect.fromLTWH(0, 0, pageSize.width, pageSize.height), pen: PdfPen(PdfColor(0, 0, 0)));
       final PdfGrid grid = _getGridTrip(font, pageSize);
       // final PdfGrid gridSummry = _getGridCustomerRequestSummry(font);
 
-      final PdfLayoutResult result =
-          await drowerHeaderPdf(page, pageSize, grid, font, 'تقرير الرحلات');
+      final PdfLayoutResult result = await drowerHeaderPdf(page, pageSize, grid, font, 'تقرير الرحلات');
 
-      final PdfLayoutResult resultsummry =
-          _drawGrid(page, grid, result, font, 2);
+      final PdfLayoutResult resultsummry = _drawGrid(page, grid, result, font, 2);
 
       grid.allowRowBreakingAcrossPages = true;
 
       final List<int> bytes = await document.save();
       document.dispose();
-      await saveAndLaunch(
-          data: bytes,
-          name: 'reprot3'.toString() + Random().nextInt(101).toString());
+      await saveAndLaunch(data: bytes, name: 'reprot3'.toString() + Random().nextInt(101).toString());
 
       isLoading.value = false;
     } catch (e) {
@@ -365,35 +318,25 @@ class ReportDesktopController extends GetxController {
       final PdfPage page = document.pages.add();
       final Size pageSize = page.getClientSize();
 
-      final Uint8List fontData =
-          File('fonts/AdobeArabic.ttf').readAsBytesSync();
-      final PdfFont font =
-          PdfTrueTypeFont(fontData, 16, style: PdfFontStyle.regular);
-      page.graphics.drawRectangle(
-          bounds: Rect.fromLTWH(0, 0, pageSize.width, pageSize.height),
-          pen: PdfPen(PdfColor(0, 0, 0)));
+      final Uint8List fontData = File('fonts/AdobeArabic.ttf').readAsBytesSync();
+      final PdfFont font = PdfTrueTypeFont(fontData, 16, style: PdfFontStyle.regular);
+      page.graphics.drawRectangle(bounds: Rect.fromLTWH(0, 0, pageSize.width, pageSize.height), pen: PdfPen(PdfColor(0, 0, 0)));
       final PdfGrid grid = _getGridCustomerRequest(font);
       final PdfGrid gridSummry = _getGridCustomerRequestSummry(font);
 
-      final PdfLayoutResult result = await drowerHeaderPdf(
-          page, pageSize, grid, font, 'تقرير طلبات العملاء');
+      final PdfLayoutResult result = await drowerHeaderPdf(page, pageSize, grid, font, 'تقرير طلبات العملاء');
 
-      final PdfLayoutResult resultsummry =
-          _drawGrid(page, grid, result, font, 1);
+      final PdfLayoutResult resultsummry = _drawGrid(page, grid, result, font, 1);
 
       final page2 = document.pages.add();
-      page2.graphics.drawRectangle(
-          bounds: Rect.fromLTWH(0, 0, pageSize.width, pageSize.height),
-          pen: PdfPen(PdfColor(0, 0, 0)));
+      page2.graphics.drawRectangle(bounds: Rect.fromLTWH(0, 0, pageSize.width, pageSize.height), pen: PdfPen(PdfColor(0, 0, 0)));
       _drawGridSummry(page2, gridSummry, result, font);
 
       grid.allowRowBreakingAcrossPages = true;
 
       final List<int> bytes = await document.save();
       document.dispose();
-      await saveAndLaunch(
-          data: bytes,
-          name: 'reprot3'.toString() + Random().nextInt(101).toString());
+      await saveAndLaunch(data: bytes, name: 'reprot3'.toString() + Random().nextInt(101).toString());
 
       isLoading.value = false;
     } catch (e) {
@@ -403,12 +346,10 @@ class ReportDesktopController extends GetxController {
     }
   }
 
-  Future<PdfLayoutResult> drowerHeaderPdf(PdfPage page, Size pageSize,
-          PdfGrid grid, PdfFont font, String title) =>
+  Future<PdfLayoutResult> drowerHeaderPdf(PdfPage page, Size pageSize, PdfGrid grid, PdfFont font, String title) =>
       _drawHeader(page, pageSize, grid, font, title);
 
-  Future<void> saveAndLaunch(
-      {required List<int> data, required String name}) async {
+  Future<void> saveAndLaunch({required List<int> data, required String name}) async {
     //Get page client size
     var dir = Directory(r'E:\test\data\pdf');
     if (!await dir.exists()) {
@@ -432,56 +373,37 @@ class ReportDesktopController extends GetxController {
     final color = Get.theme.colorScheme.primary;
     final PdfGridRow headerRow = grid.headers.add(1)[0];
     headerRow.style.font = font;
-    headerRow.style.backgroundBrush = PdfSolidBrush(
-        PdfColor(color.red, color.green, color.blue, color.alpha));
+    headerRow.style.backgroundBrush = PdfSolidBrush(PdfColor(color.red, color.green, color.blue, color.alpha));
     headerRow.style.textBrush = PdfBrushes.white;
     headerRow.cells[0].value = 'عدد الطلبات بانتظار التعديل';
-    headerRow.cells[0].stringFormat = PdfStringFormat(
-        textDirection: PdfTextDirection.rightToLeft,
-        alignment: PdfTextAlignment.center);
+    headerRow.cells[0].stringFormat = PdfStringFormat(textDirection: PdfTextDirection.rightToLeft, alignment: PdfTextAlignment.center);
     // headerRow.cells[0].stringFormat.alignment = PdfTextAlignment.center;
     headerRow.cells[1].value = 'عدد الطلبات الملغيه';
-    headerRow.cells[1].stringFormat = PdfStringFormat(
-        textDirection: PdfTextDirection.rightToLeft,
-        alignment: PdfTextAlignment.center);
+    headerRow.cells[1].stringFormat = PdfStringFormat(textDirection: PdfTextDirection.rightToLeft, alignment: PdfTextAlignment.center);
 
     headerRow.cells[2].value = 'عدد الطلبات تحت المعالجة';
-    headerRow.cells[2].stringFormat = PdfStringFormat(
-        textDirection: PdfTextDirection.rightToLeft,
-        alignment: PdfTextAlignment.center);
+    headerRow.cells[2].stringFormat = PdfStringFormat(textDirection: PdfTextDirection.rightToLeft, alignment: PdfTextAlignment.center);
 
     headerRow.cells[3].value = 'عدد الطلبات قيد الطلب';
-    headerRow.cells[3].stringFormat = PdfStringFormat(
-        textDirection: PdfTextDirection.rightToLeft,
-        alignment: PdfTextAlignment.center);
+    headerRow.cells[3].stringFormat = PdfStringFormat(textDirection: PdfTextDirection.rightToLeft, alignment: PdfTextAlignment.center);
 
     headerRow.cells[4].value = 'عدد الطلبات المكتملة';
-    headerRow.cells[4].stringFormat = PdfStringFormat(
-        textDirection: PdfTextDirection.rightToLeft,
-        alignment: PdfTextAlignment.center);
+    headerRow.cells[4].stringFormat = PdfStringFormat(textDirection: PdfTextDirection.rightToLeft, alignment: PdfTextAlignment.center);
 
     headerRow.cells[5].value = 'عدد الطلبات';
-    headerRow.cells[5].stringFormat = PdfStringFormat(
-        textDirection: PdfTextDirection.rightToLeft,
-        alignment: PdfTextAlignment.center);
+    headerRow.cells[5].stringFormat = PdfStringFormat(textDirection: PdfTextDirection.rightToLeft, alignment: PdfTextAlignment.center);
 
     headerRow.cells[6].value = 'اسم الخدمة';
-    headerRow.cells[6].stringFormat = PdfStringFormat(
-        textDirection: PdfTextDirection.rightToLeft,
-        alignment: PdfTextAlignment.center);
+    headerRow.cells[6].stringFormat = PdfStringFormat(textDirection: PdfTextDirection.rightToLeft, alignment: PdfTextAlignment.center);
 
     _addCustomerRequest(getuniqRequst, grid, font);
 
-    grid.applyBuiltInStyle(PdfGridBuiltInStyle.gridTable4Accent5,
-        settings: PdfGridBuiltInStyleSettings());
+    grid.applyBuiltInStyle(PdfGridBuiltInStyle.gridTable4Accent5, settings: PdfGridBuiltInStyleSettings());
     grid.columns[6].width = 100;
-    grid.columns[6].format = PdfStringFormat(
-        alignment: PdfTextAlignment.right,
-        lineAlignment: PdfVerticalAlignment.middle);
+    grid.columns[6].format = PdfStringFormat(alignment: PdfTextAlignment.right, lineAlignment: PdfVerticalAlignment.middle);
     // grid.columns[6].format = PdfStringFormat(alignment: PdfTextAlignment.right);
     for (int i = 0; i < headerRow.cells.count; i++) {
-      headerRow.cells[i].style.cellPadding =
-          PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
+      headerRow.cells[i].style.cellPadding = PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
     }
     for (int i = 0; i < grid.rows.count; i++) {
       final PdfGridRow row = grid.rows[i];
@@ -490,76 +412,39 @@ class ReportDesktopController extends GetxController {
         if (j == 0) {
           cell.stringFormat.alignment = PdfTextAlignment.center;
         }
-        cell.style.cellPadding =
-            PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
-        cell.style.stringFormat = PdfStringFormat(
-            textDirection: PdfTextDirection.rightToLeft,
-            alignment: PdfTextAlignment.right,
-            wordWrap: PdfWordWrapType.word);
+        cell.style.cellPadding = PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
+        cell.style.stringFormat =
+            PdfStringFormat(textDirection: PdfTextDirection.rightToLeft, alignment: PdfTextAlignment.right, wordWrap: PdfWordWrapType.word);
       }
     }
     return grid;
   }
 
-  void _addCustomerRequest(
-      List<UserRequest> request, PdfGrid grid, PdfFont font) {
+  void _addCustomerRequest(List<UserRequest> request, PdfGrid grid, PdfFont font) {
     for (var element in request) {
       final PdfGridRow row = grid.rows.add();
       row.style = PdfGridRowStyle(font: font);
-      row.cells[0].value = allRequest
-          .where(
-              (e) => element.serviceName == e.serviceName && e.state!.id == 5)
-          .toList()
-          .length
-          .toString();
-      row.cells[1].value = allRequest
-          .where(
-              (e) => element.serviceName == e.serviceName && e.state!.id == 3)
-          .toList()
-          .length
-          .toString();
+      row.cells[0].value = allRequest.where((e) => element.serviceName == e.serviceName && e.state!.id == 5).toList().length.toString();
+      row.cells[1].value = allRequest.where((e) => element.serviceName == e.serviceName && e.state!.id == 3).toList().length.toString();
 
-      row.cells[2].value = allRequest
-          .where(
-              (e) => element.serviceName == e.serviceName && e.state!.id == 2)
-          .toList()
-          .length
-          .toString();
-      row.cells[3].value = allRequest
-          .where(
-              (e) => element.serviceName == e.serviceName && e.state!.id == 1)
-          .toList()
-          .length
-          .toString();
-      row.cells[4].value = allRequest
-          .where(
-              (e) => element.serviceName == e.serviceName && e.state!.id == 4)
-          .toList()
-          .length
-          .toString();
-      row.cells[5].value = allRequest
-          .where((e) => element.serviceName == e.serviceName)
-          .toList()
-          .length
-          .toString();
+      row.cells[2].value = allRequest.where((e) => element.serviceName == e.serviceName && e.state!.id == 2).toList().length.toString();
+      row.cells[3].value = allRequest.where((e) => element.serviceName == e.serviceName && e.state!.id == 1).toList().length.toString();
+      row.cells[4].value = allRequest.where((e) => element.serviceName == e.serviceName && e.state!.id == 4).toList().length.toString();
+      row.cells[5].value = allRequest.where((e) => element.serviceName == e.serviceName).toList().length.toString();
       row.cells[6].value = element.serviceName!;
     }
   }
 
-  Future<PdfLayoutResult> _drawHeader(PdfPage page, Size pageSize, PdfGrid grid,
-      PdfFont font, String title) async {
+  Future<PdfLayoutResult> _drawHeader(PdfPage page, Size pageSize, PdfGrid grid, PdfFont font, String title) async {
     final file = await File('images/logo.png').readAsBytesSync();
 
     PdfImage imageLogo = PdfBitmap(file);
 
     final Uint8List fontData = File('fonts/AdobeArabic.ttf').readAsBytesSync();
-    final PdfFont fonts =
-        PdfTrueTypeFont(fontData, 16, style: PdfFontStyle.regular);
+    final PdfFont fonts = PdfTrueTypeFont(fontData, 16, style: PdfFontStyle.regular);
     final color = Get.theme.colorScheme.primary;
     page.graphics.drawRectangle(
-        brush: PdfSolidBrush(
-            PdfColor(color.red, color.green, color.blue, color.alpha)),
-        bounds: Rect.fromLTWH(0, 0, pageSize.width, 90));
+        brush: PdfSolidBrush(PdfColor(color.red, color.green, color.blue, color.alpha)), bounds: Rect.fromLTWH(0, 0, pageSize.width, 90));
     //Draw string
     double titleWidth = pageSize.width - 115;
 
@@ -567,20 +452,16 @@ class ReportDesktopController extends GetxController {
       title,
       font,
       brush: PdfBrushes.white,
-      bounds:
-          Rect.fromLTWH((pageSize.width - titleWidth) / 2, 25, titleWidth, 90),
+      bounds: Rect.fromLTWH((pageSize.width - titleWidth) / 2, 25, titleWidth, 90),
       format: PdfStringFormat(
-          alignment: PdfTextAlignment.center,
-          lineAlignment: PdfVerticalAlignment.middle,
-          textDirection: PdfTextDirection.rightToLeft),
+          alignment: PdfTextAlignment.center, lineAlignment: PdfVerticalAlignment.middle, textDirection: PdfTextDirection.rightToLeft),
     );
     // page.graphics.drawRectangle(
     //     bounds: Rect.fromLTWH(400, 0, pageSize.width - 400, 90),
     //     brush: PdfSolidBrush(PdfColor(65, 104, 205)));
     double imageWidth = 70;
 
-    page.graphics.drawImage(imageLogo,
-        Rect.fromLTWH((pageSize.width - imageWidth) / 2, 0, imageWidth, 50));
+    page.graphics.drawImage(imageLogo, Rect.fromLTWH((pageSize.width - imageWidth) / 2, 0, imageWidth, 50));
     // final PdfFont contentFont = PdfStandardFont(PdfFontFamily.helvetica, 9);
     // final PdfFont contentFont = PdfStandardFont(PdfFontFamily.helvetica, 9);
     //Draw string
@@ -592,22 +473,14 @@ class ReportDesktopController extends GetxController {
     //         lineAlignment: PdfVerticalAlignment.bottom));
     //Create data foramt and convert it to text.
     final DateFormat format = DateFormat.yMMMMd('ar');
-    final String invoiceNumber =
-        'تاريخ اصدار التقرير: ' + format.format(DateTime.now());
+    final String invoiceNumber = 'تاريخ اصدار التقرير: ' + format.format(DateTime.now());
 
     final size = fonts.measureString(invoiceNumber);
     // final Size contentSize = contentFont.measureString(invoiceNumber);
     // const String address =
     //     'Bill To: \r\n\r\nAbraham Swearegin, \r\n\r\nUnited States, California, San Mateo, \r\n\r\n9920 BridgePointe Parkway, \r\n\r\n9365550136';
-    return PdfTextElement(
-            text: invoiceNumber,
-            font: font,
-            format:
-                PdfStringFormat(textDirection: PdfTextDirection.rightToLeft))
-        .draw(
-            page: page,
-            bounds: Rect.fromLTWH(
-                pageSize.width - 150, 120, size.width, pageSize.height - 120))!;
+    return PdfTextElement(text: invoiceNumber, font: font, format: PdfStringFormat(textDirection: PdfTextDirection.rightToLeft))
+        .draw(page: page, bounds: Rect.fromLTWH(pageSize.width - 150, 120, size.width, pageSize.height - 120))!;
 
     // PdfTextElement(text: address, font: contentFont).draw(
     //     page: page,
@@ -621,8 +494,7 @@ class ReportDesktopController extends GetxController {
     return bytdata.buffer.asInt8List();
   }
 
-  PdfLayoutResult _drawGrid(
-      PdfPage page, PdfGrid grid, PdfLayoutResult result, font, int type) {
+  PdfLayoutResult _drawGrid(PdfPage page, PdfGrid grid, PdfLayoutResult result, font, int type) {
     Rect? totalPriceCellBounds;
     Rect? quantityCellBounds;
     final PdfLayoutFormat format = PdfLayoutFormat(
@@ -697,16 +569,11 @@ class ReportDesktopController extends GetxController {
     // _addCustomerRequest(getuniqRequst, grid, font);
     _addCustomerRequestsummry(getuniqRequst, grid, font);
 
-    grid.applyBuiltInStyle(PdfGridBuiltInStyle.gridTable4Accent5,
-        settings: PdfGridBuiltInStyleSettings());
+    grid.applyBuiltInStyle(PdfGridBuiltInStyle.gridTable4Accent5, settings: PdfGridBuiltInStyleSettings());
     grid.columns[0].width = 100;
-    grid.columns[0].format = PdfStringFormat(
-        alignment: PdfTextAlignment.center,
-        lineAlignment: PdfVerticalAlignment.middle);
+    grid.columns[0].format = PdfStringFormat(alignment: PdfTextAlignment.center, lineAlignment: PdfVerticalAlignment.middle);
     grid.columns[1].width = 200;
-    grid.columns[1].format = PdfStringFormat(
-        alignment: PdfTextAlignment.center,
-        lineAlignment: PdfVerticalAlignment.middle);
+    grid.columns[1].format = PdfStringFormat(alignment: PdfTextAlignment.center, lineAlignment: PdfVerticalAlignment.middle);
     // grid.columns[6].format = PdfStringFormat(alignment: PdfTextAlignment.right);
 
     // for (int i = 0; i < headerRow.cells.count; i++) {
@@ -720,19 +587,15 @@ class ReportDesktopController extends GetxController {
         if (j == 0) {
           cell.stringFormat.alignment = PdfTextAlignment.center;
         }
-        cell.style.cellPadding =
-            PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
-        cell.style.stringFormat = PdfStringFormat(
-            textDirection: PdfTextDirection.rightToLeft,
-            alignment: PdfTextAlignment.right,
-            wordWrap: PdfWordWrapType.word);
+        cell.style.cellPadding = PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
+        cell.style.stringFormat =
+            PdfStringFormat(textDirection: PdfTextDirection.rightToLeft, alignment: PdfTextAlignment.right, wordWrap: PdfWordWrapType.word);
       }
     }
     return grid;
   }
 
-  void _addCustomerRequestsummry(
-      List<UserRequest> getuniqRequst, PdfGrid grid, PdfFont font) {
+  void _addCustomerRequestsummry(List<UserRequest> getuniqRequst, PdfGrid grid, PdfFont font) {
     // List<UserRequest> request, PdfGrid grid, PdfFont font) {
     // for (var element in getuniqRequst) {
     final PdfGridRow row = grid.rows.add();
@@ -743,33 +606,28 @@ class ReportDesktopController extends GetxController {
     final PdfGridRow row1 = grid.rows.add();
     row1.style = PdfGridRowStyle(font: font);
 
-    row1.cells[0].value =
-        allRequest.where((e) => e.state!.id == 4).toList().length.toString();
+    row1.cells[0].value = allRequest.where((e) => e.state!.id == 4).toList().length.toString();
     row1.cells[1].value = 'اجمالي عدد الطلبات المكتملة';
 
     final PdfGridRow row2 = grid.rows.add();
     row2.style = PdfGridRowStyle(font: font);
-    row2.cells[0].value =
-        allRequest.where((e) => e.state!.id == 1).toList().length.toString();
+    row2.cells[0].value = allRequest.where((e) => e.state!.id == 1).toList().length.toString();
     row2.cells[1].value = 'اجمالي عدد قيد الطلبات الطلب';
 
     final PdfGridRow row3 = grid.rows.add();
     row3.style = PdfGridRowStyle(font: font);
 
-    row3.cells[0].value =
-        allRequest.where((e) => e.state!.id == 2).toList().length.toString();
+    row3.cells[0].value = allRequest.where((e) => e.state!.id == 2).toList().length.toString();
     row3.cells[1].value = 'اجمالي عدد الطلبات تحت المعالجة';
     final PdfGridRow row4 = grid.rows.add();
     row4.style = PdfGridRowStyle(font: font);
 
-    row4.cells[0].value =
-        allRequest.where((e) => e.state!.id == 3).toList().length.toString();
+    row4.cells[0].value = allRequest.where((e) => e.state!.id == 3).toList().length.toString();
     row4.cells[1].value = 'اجمالي عدد الطلبات الملغية';
     final PdfGridRow row5 = grid.rows.add();
     row5.style = PdfGridRowStyle(font: font);
 
-    row5.cells[0].value =
-        allRequest.where((e) => e.state!.id == 5).toList().length.toString();
+    row5.cells[0].value = allRequest.where((e) => e.state!.id == 5).toList().length.toString();
     row5.cells[1].value = 'اجمالي عدد الطلبات  بنتظار التعديل';
     // row.cells[0].value = allRequest
     //     .where(
@@ -811,8 +669,7 @@ class ReportDesktopController extends GetxController {
     // }
   }
 
-  void _drawGridSummry(
-      PdfPage page, PdfGrid grid, PdfLayoutResult result, PdfFont font) {
+  void _drawGridSummry(PdfPage page, PdfGrid grid, PdfLayoutResult result, PdfFont font) {
     Rect? totalPriceCellBounds;
     Rect? quantityCellBounds;
     final PdfLayoutFormat format = PdfLayoutFormat(
@@ -866,44 +723,32 @@ class ReportDesktopController extends GetxController {
     final color = Get.theme.colorScheme.primary;
     final PdfGridRow headerRow = grid.headers.add(1)[0];
     headerRow.style.font = font;
-    headerRow.style.backgroundBrush = PdfSolidBrush(
-        PdfColor(color.red, color.green, color.blue, color.alpha));
+    headerRow.style.backgroundBrush = PdfSolidBrush(PdfColor(color.red, color.green, color.blue, color.alpha));
     headerRow.style.textBrush = PdfBrushes.white;
     headerRow.cells[0].value = 'عدد مرات الحجز';
-    headerRow.cells[0].stringFormat = PdfStringFormat(
-        measureTrailingSpaces: true,
-        textDirection: PdfTextDirection.rightToLeft,
-        alignment: PdfTextAlignment.center);
+    headerRow.cells[0].stringFormat =
+        PdfStringFormat(measureTrailingSpaces: true, textDirection: PdfTextDirection.rightToLeft, alignment: PdfTextAlignment.center);
     // headerRow.cells[0].stringFormat.alignment = PdfTextAlignment.center;
     headerRow.cells[1].value = 'تاريخ الحجز';
-    headerRow.cells[1].stringFormat = PdfStringFormat(
-        measureTrailingSpaces: true,
-        textDirection: PdfTextDirection.rightToLeft,
-        alignment: PdfTextAlignment.center);
+    headerRow.cells[1].stringFormat =
+        PdfStringFormat(measureTrailingSpaces: true, textDirection: PdfTextDirection.rightToLeft, alignment: PdfTextAlignment.center);
     _addReportGridDetailsTrip(
         ReportHelper.uniqueData(
             data: allTripsRequest,
             condatioin: (value, collecation) {
-              return !collecation
-                  .any((element) => element.dateGo == value.dateGo);
+              return !collecation.any((element) => element.dateGo == value.dateGo);
             }),
         grid,
         font);
 
-    grid.applyBuiltInStyle(PdfGridBuiltInStyle.gridTable4Accent5,
-        settings: PdfGridBuiltInStyleSettings());
+    grid.applyBuiltInStyle(PdfGridBuiltInStyle.gridTable4Accent5, settings: PdfGridBuiltInStyleSettings());
     grid.columns[0].width = page2.width / 2;
-    grid.columns[0].format = PdfStringFormat(
-        alignment: PdfTextAlignment.center,
-        lineAlignment: PdfVerticalAlignment.middle);
+    grid.columns[0].format = PdfStringFormat(alignment: PdfTextAlignment.center, lineAlignment: PdfVerticalAlignment.middle);
     grid.columns[1].width = page2.width / 2;
-    grid.columns[1].format = PdfStringFormat(
-        alignment: PdfTextAlignment.center,
-        lineAlignment: PdfVerticalAlignment.middle);
+    grid.columns[1].format = PdfStringFormat(alignment: PdfTextAlignment.center, lineAlignment: PdfVerticalAlignment.middle);
     // grid.columns[6].format = PdfStringFormat(alignment: PdfTextAlignment.right);
     for (int i = 0; i < headerRow.cells.count; i++) {
-      headerRow.cells[i].style.cellPadding =
-          PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
+      headerRow.cells[i].style.cellPadding = PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
     }
     for (int i = 0; i < grid.rows.count; i++) {
       final PdfGridRow row = grid.rows[i];
@@ -912,12 +757,9 @@ class ReportDesktopController extends GetxController {
         if (j == 0) {
           cell.stringFormat.alignment = PdfTextAlignment.center;
         }
-        cell.style.cellPadding =
-            PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
-        cell.style.stringFormat = PdfStringFormat(
-            textDirection: PdfTextDirection.rightToLeft,
-            alignment: PdfTextAlignment.center,
-            wordWrap: PdfWordWrapType.word);
+        cell.style.cellPadding = PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
+        cell.style.stringFormat =
+            PdfStringFormat(textDirection: PdfTextDirection.rightToLeft, alignment: PdfTextAlignment.center, wordWrap: PdfWordWrapType.word);
       }
     }
     return grid;
@@ -928,11 +770,7 @@ class ReportDesktopController extends GetxController {
       final PdfGridRow row = grid.rows.add();
       row.style = PdfGridRowStyle(font: font);
 
-      row.cells[0].value = allTripsRequest
-          .where((e) => element.dateGo == e.dateGo)
-          .toList()
-          .length
-          .toString();
+      row.cells[0].value = allTripsRequest.where((e) => element.dateGo == e.dateGo).toList().length.toString();
       row.cells[1].value = DateFormat.yMd('ar').format(element.dateGo!);
     }
   }
@@ -945,29 +783,21 @@ class ReportDesktopController extends GetxController {
       final PdfPage page = document.pages.add();
       final Size pageSize = page.getClientSize();
 
-      final Uint8List fontData =
-          File('fonts/AdobeArabic.ttf').readAsBytesSync();
-      final PdfFont font =
-          PdfTrueTypeFont(fontData, 16, style: PdfFontStyle.regular);
-      page.graphics.drawRectangle(
-          bounds: Rect.fromLTWH(0, 0, pageSize.width, pageSize.height),
-          pen: PdfPen(PdfColor(0, 0, 0)));
+      final Uint8List fontData = File('fonts/AdobeArabic.ttf').readAsBytesSync();
+      final PdfFont font = PdfTrueTypeFont(fontData, 16, style: PdfFontStyle.regular);
+      page.graphics.drawRectangle(bounds: Rect.fromLTWH(0, 0, pageSize.width, pageSize.height), pen: PdfPen(PdfColor(0, 0, 0)));
       final PdfGrid grid = _getGridCity(font);
       // final PdfGrid gridSummry = _getGridCustomerRequestSummry(font);
 
-      final PdfLayoutResult result =
-          await drowerHeaderPdf(page, pageSize, grid, font, "تقرير المدن");
+      final PdfLayoutResult result = await drowerHeaderPdf(page, pageSize, grid, font, "تقرير المدن");
 
-      final PdfLayoutResult resultsummry =
-          _drawGrid(page, grid, result, font, 3);
+      final PdfLayoutResult resultsummry = _drawGrid(page, grid, result, font, 3);
 
       grid.allowRowBreakingAcrossPages = true;
 
       final List<int> bytes = await document.save();
       document.dispose();
-      await saveAndLaunch(
-          data: bytes,
-          name: 'reprot3'.toString() + Random().nextInt(101).toString());
+      await saveAndLaunch(data: bytes, name: 'reprot3'.toString() + Random().nextInt(101).toString());
 
       isLoading.value = false;
     } catch (e) {
@@ -984,25 +814,19 @@ class ReportDesktopController extends GetxController {
     final color = Get.theme.colorScheme.primary;
     final PdfGridRow headerRow = grid.headers.add(1)[0];
     headerRow.style.font = font;
-    headerRow.style.backgroundBrush = PdfSolidBrush(
-        PdfColor(color.red, color.green, color.blue, color.alpha));
+    headerRow.style.backgroundBrush = PdfSolidBrush(PdfColor(color.red, color.green, color.blue, color.alpha));
     headerRow.style.textBrush = PdfBrushes.white;
     headerRow.cells[0].value = "الاجمالي";
-    headerRow.cells[0].stringFormat =
-        PdfStringFormat(textDirection: PdfTextDirection.rightToLeft);
+    headerRow.cells[0].stringFormat = PdfStringFormat(textDirection: PdfTextDirection.rightToLeft);
     headerRow.cells[0].stringFormat.alignment = PdfTextAlignment.center;
     headerRow.cells[1].value = "مرات السفر اليها";
-    headerRow.cells[1].stringFormat =
-        PdfStringFormat(textDirection: PdfTextDirection.rightToLeft);
+    headerRow.cells[1].stringFormat = PdfStringFormat(textDirection: PdfTextDirection.rightToLeft);
     headerRow.cells[2].value = "مرات السفر منها";
-    headerRow.cells[2].stringFormat =
-        PdfStringFormat(textDirection: PdfTextDirection.rightToLeft);
+    headerRow.cells[2].stringFormat = PdfStringFormat(textDirection: PdfTextDirection.rightToLeft);
     headerRow.cells[3].value = "الاسم";
-    headerRow.cells[3].stringFormat =
-        PdfStringFormat(textDirection: PdfTextDirection.rightToLeft);
+    headerRow.cells[3].stringFormat = PdfStringFormat(textDirection: PdfTextDirection.rightToLeft);
     headerRow.cells[4].value = "الرقم";
-    headerRow.cells[4].stringFormat =
-        PdfStringFormat(textDirection: PdfTextDirection.rightToLeft);
+    headerRow.cells[4].stringFormat = PdfStringFormat(textDirection: PdfTextDirection.rightToLeft);
 
     _addReportGridCity(
         ReportHelper.uniqueData(
@@ -1013,20 +837,16 @@ class ReportDesktopController extends GetxController {
         grid,
         font);
 
-    grid.applyBuiltInStyle(PdfGridBuiltInStyle.gridTable4Accent5,
-        settings: PdfGridBuiltInStyleSettings());
+    grid.applyBuiltInStyle(PdfGridBuiltInStyle.gridTable4Accent5, settings: PdfGridBuiltInStyleSettings());
     grid.columns[3].width = 150;
-    grid.columns[3].format = PdfStringFormat(
-        alignment: PdfTextAlignment.right,
-        lineAlignment: PdfVerticalAlignment.middle);
+    grid.columns[3].format = PdfStringFormat(alignment: PdfTextAlignment.right, lineAlignment: PdfVerticalAlignment.middle);
     // grid.columns[1].width = 150;
     // grid.columns[1].format = PdfStringFormat(
     //     alignment: PdfTextAlignment.right,
     //     lineAlignment: PdfVerticalAlignment.middle);
     // grid.columns[6].format = PdfStringFormat(alignment: PdfTextAlignment.right);
     for (int i = 0; i < headerRow.cells.count; i++) {
-      headerRow.cells[i].style.cellPadding =
-          PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
+      headerRow.cells[i].style.cellPadding = PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
     }
     for (int i = 0; i < grid.rows.count; i++) {
       final PdfGridRow row = grid.rows[i];
@@ -1035,12 +855,9 @@ class ReportDesktopController extends GetxController {
         if (j == 0) {
           cell.stringFormat.alignment = PdfTextAlignment.center;
         }
-        cell.style.cellPadding =
-            PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
-        cell.style.stringFormat = PdfStringFormat(
-            textDirection: PdfTextDirection.rightToLeft,
-            alignment: PdfTextAlignment.right,
-            wordWrap: PdfWordWrapType.word);
+        cell.style.cellPadding = PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
+        cell.style.stringFormat =
+            PdfStringFormat(textDirection: PdfTextDirection.rightToLeft, alignment: PdfTextAlignment.right, wordWrap: PdfWordWrapType.word);
       }
     }
     return grid;
@@ -1050,21 +867,9 @@ class ReportDesktopController extends GetxController {
     for (var element in city) {
       final PdfGridRow row = grid.rows.add();
       row.style = PdfGridRowStyle(font: font);
-      row.cells[0].value = getAllCitiesFromAndTo
-          .where((e) => element.id == e.id)
-          .toList()
-          .length
-          .toString();
-      row.cells[1].value = getAllCitiesFromAndTo
-          .where((e) => element.id == e.id && !e.isFrom!)
-          .toList()
-          .length
-          .toString();
-      row.cells[2].value = getAllCitiesFromAndTo
-          .where((e) => element.id == e.id && e.isFrom!)
-          .toList()
-          .length
-          .toString();
+      row.cells[0].value = getAllCitiesFromAndTo.where((e) => element.id == e.id).toList().length.toString();
+      row.cells[1].value = getAllCitiesFromAndTo.where((e) => element.id == e.id && !e.isFrom!).toList().length.toString();
+      row.cells[2].value = getAllCitiesFromAndTo.where((e) => element.id == e.id && e.isFrom!).toList().length.toString();
       row.cells[3].value = element.name;
       row.cells[4].value = element.id.toString();
       // row.cells[1].value = DateFormat.yMd('ar').format(element.dateGo!);

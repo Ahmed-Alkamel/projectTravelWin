@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   awesome_notifications
   connectivity_plus
   desktop_window
+  file_selector_windows
   permission_handler_windows
   url_launcher_windows
 )

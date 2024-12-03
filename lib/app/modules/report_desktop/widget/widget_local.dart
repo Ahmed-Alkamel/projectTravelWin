@@ -34,19 +34,13 @@ class TripReportView extends GetView<ReportDesktopController> {
                               child: DefaultCountainer(
                                 alignment: Alignment.center,
                                 padding: const EdgeInsets.all(8.0),
-                                color:
-                                    controller.currentTypeReport.value == e.key
-                                        ? Get.theme.colorScheme.primary
-                                        : Get.theme.colorScheme.secondary,
+                                color: controller.currentTypeReport.value == e.key ? Get.theme.colorScheme.primary : Get.theme.colorScheme.secondary,
                                 child: Text(
                                   e.value,
-                                  style: Get.textTheme.headlineLarge!.merge(
-                                      TextStyle(
-                                          color: controller.currentTypeReport
-                                                      .value ==
-                                                  e.key
-                                              ? Get.theme.colorScheme.secondary
-                                              : Get.theme.colorScheme.primary)),
+                                  style: Get.textTheme.headlineLarge!.merge(TextStyle(
+                                      color: controller.currentTypeReport.value == e.key
+                                          ? Get.theme.colorScheme.secondary
+                                          : Get.theme.colorScheme.primary)),
                                 ),
                               ),
                             ),
@@ -95,8 +89,7 @@ class TripReportView extends GetView<ReportDesktopController> {
             title: AxisTitle(text: 'عدد'),
             axisLine: const AxisLine(width: 0),
             labelFormat: '{value} ',
-            majorTickLines:
-                MajorTickLines(color: Get.theme.colorScheme.primary)),
+            majorTickLines: MajorTickLines(color: Get.theme.colorScheme.primary)),
         series: controller.getTrips(),
         trackballBehavior: controller.trackballBehavior,
       ),
@@ -181,19 +174,13 @@ class CustomerRequestReportVeiw extends GetView<ReportDesktopController> {
                               child: DefaultCountainer(
                                 alignment: Alignment.center,
                                 padding: const EdgeInsets.all(8.0),
-                                color:
-                                    controller.currentTypeReport.value == e.key
-                                        ? Get.theme.colorScheme.primary
-                                        : Get.theme.colorScheme.secondary,
+                                color: controller.currentTypeReport.value == e.key ? Get.theme.colorScheme.primary : Get.theme.colorScheme.secondary,
                                 child: Text(
                                   e.value,
-                                  style: Get.textTheme.headlineLarge!.merge(
-                                      TextStyle(
-                                          color: controller.currentTypeReport
-                                                      .value ==
-                                                  e.key
-                                              ? Get.theme.colorScheme.secondary
-                                              : Get.theme.colorScheme.primary)),
+                                  style: Get.textTheme.headlineLarge!.merge(TextStyle(
+                                      color: controller.currentTypeReport.value == e.key
+                                          ? Get.theme.colorScheme.secondary
+                                          : Get.theme.colorScheme.primary)),
                                 ),
                               ),
                             ),
@@ -243,10 +230,7 @@ class CustomerRequestReportVeiw extends GetView<ReportDesktopController> {
               primaryXAxis: CategoryAxis(
                 majorGridLines: const MajorGridLines(width: 0),
               ),
-              primaryYAxis: NumericAxis(
-                  axisLine: const AxisLine(width: 0),
-                  labelFormat: '{value}%',
-                  majorTickLines: const MajorTickLines(size: 0)),
+              primaryYAxis: NumericAxis(axisLine: const AxisLine(width: 0), labelFormat: '{value}%', majorTickLines: const MajorTickLines(size: 0)),
               series: controller.getDefaultColumnSeries(),
               tooltipBehavior: controller.tooltipBehavior,
             ),
@@ -279,11 +263,9 @@ class CustomerRequestReportVeiw extends GetView<ReportDesktopController> {
                     ? Container()
                     : SfCircularChart(
                         series: controller.dataServiceRequestState(
-                            controller.getStateByRequest(
-                                controller.currentUserrequestReport!),
-                            controller.currentUserrequestReport!),
-                        title: titleChart(
-                            controller.currentUserrequestReport!.serviceName!),
+                                controller.getStateByRequest(controller.currentUserrequestReport!), controller.currentUserrequestReport!) ??
+                            [],
+                        title: titleChart(controller.currentUserrequestReport!.serviceName!),
                         legend: Legend(isVisible: true),
                       );
               },
@@ -402,21 +384,14 @@ class CityReportView extends GetView<ReportDesktopController> {
                                 child: DefaultCountainer(
                                   alignment: Alignment.center,
                                   padding: const EdgeInsets.all(8.0),
-                                  color: controller.currentTypeReport.value ==
-                                          e.key
-                                      ? Get.theme.colorScheme.primary
-                                      : Get.theme.colorScheme.secondary,
+                                  color:
+                                      controller.currentTypeReport.value == e.key ? Get.theme.colorScheme.primary : Get.theme.colorScheme.secondary,
                                   child: Text(
                                     e.value,
-                                    style: Get.textTheme.headlineLarge!.merge(
-                                        TextStyle(
-                                            color: controller.currentTypeReport
-                                                        .value ==
-                                                    e.key
-                                                ? Get
-                                                    .theme.colorScheme.secondary
-                                                : Get.theme.colorScheme
-                                                    .primary)),
+                                    style: Get.textTheme.headlineLarge!.merge(TextStyle(
+                                        color: controller.currentTypeReport.value == e.key
+                                            ? Get.theme.colorScheme.secondary
+                                            : Get.theme.colorScheme.primary)),
                                   ),
                                 ),
                               ),
@@ -444,12 +419,12 @@ class CityReportView extends GetView<ReportDesktopController> {
         child: Column(
           children: [
             SfCircularChart(
-              series: controller.dataFromCity(),
+              series: controller.dataFromCity() ?? [],
               title: titleChart('المدن الكثر سفر منها'),
               legend: Legend(isVisible: true),
             ),
             SfCircularChart(
-              series: controller.dataToCity(),
+              series: controller.dataToCity() ?? [],
               title: titleChart('المدن الكثر سفر اليها'),
               legend: Legend(isVisible: true),
             ),

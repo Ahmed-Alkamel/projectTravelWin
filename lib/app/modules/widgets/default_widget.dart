@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: must_be_immutable
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,6 +12,7 @@ import 'package:projecttravelwin/app/models/basic/category.dart';
 import 'package:projecttravelwin/app/models/basic/data_basic_add_trip.dart';
 import 'package:projecttravelwin/app/models/basic/state_request.dart';
 import 'package:projecttravelwin/app/models/basic/trips.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../models/basic/company.dart';
 import '../../models/basic/country.dart';
@@ -80,8 +81,7 @@ class DefaultDropDownForm extends StatelessWidget {
         // ignore: prefer_const_constructors
         style: Get.textTheme.headlineSmall,
         decoration: InputDecoration(
-            floatingLabelStyle:
-                Get.textTheme.headlineSmall!.merge(TextStyle(fontSize: 14)),
+            floatingLabelStyle: Get.textTheme.headlineSmall!.merge(TextStyle(fontSize: 14)),
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             label: label,
             hintText: hintText,
@@ -89,12 +89,8 @@ class DefaultDropDownForm extends StatelessWidget {
             helperText: helpText,
             labelStyle: Get.textTheme.headlineMedium,
             contentPadding: const EdgeInsets.all(8.0),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(width: 1, color: enableBorderColor)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(width: 1, color: focuseBorderColor))),
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(width: 1, color: enableBorderColor)),
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide(width: 1, color: focuseBorderColor))),
         value: value,
         items: dataList!
             .map((e) => DropdownMenuItem(
@@ -178,10 +174,7 @@ class DefaultDropDown extends StatelessWidget {
                 ),
           Center(
             child: Neumorphic(
-              style: NeumorphicStyle(
-                  lightSource: LightSource.bottom,
-                  color: Get.theme.colorScheme.primary.withOpacity(0.5),
-                  depth: 8),
+              style: NeumorphicStyle(lightSource: LightSource.bottom, color: Get.theme.colorScheme.primary.withOpacity(0.5), depth: 8),
               child: DropdownButton(
                   elevation: 20,
                   hint: Center(
@@ -298,8 +291,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
                 ? OutlineInputBorder(
                     borderSide: BorderSide(
                       width: 1.0,
-                      color: widget.enableBorderColor ??
-                          Get.theme.colorScheme.primary,
+                      color: widget.enableBorderColor ?? Get.theme.colorScheme.primary,
                     ),
                     borderRadius: BorderRadius.circular(10),
                   )
@@ -329,9 +321,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
                         widget.controlPass = !widget.controlPass!;
                       });
                     },
-                    icon: Icon(widget.controlPass!
-                        ? Icons.visibility_off
-                        : Icons.visibility),
+                    icon: Icon(widget.controlPass! ? Icons.visibility_off : Icons.visibility),
                   )
                 : widget.suffixIcon),
       ),
@@ -448,8 +438,7 @@ Widget defaultButton(
                 icon: icon!,
                 label: DefaultText(
                   lable,
-                  style: Get.textTheme.headlineMedium!
-                      .merge(TextStyle(color: Get.theme.colorScheme.secondary)),
+                  style: Get.textTheme.headlineMedium!.merge(TextStyle(color: Get.theme.colorScheme.secondary)),
                 )),
           )
         : SizedBox(
@@ -504,14 +493,9 @@ class DefaultCountainer extends StatelessWidget {
       padding: padding,
       //  width: MediaQuery.of(context).size.width / 2 + 50,
       decoration: BoxDecoration(
-        borderRadius: borderRadiusSpecific ??
-            (borderRadius != null
-                ? BorderRadius.circular(borderRadius!)
-                : null),
+        borderRadius: borderRadiusSpecific ?? (borderRadius != null ? BorderRadius.circular(borderRadius!) : null),
         color: color,
-        border: isborderall ?? false
-            ? Border.all(color: Get.theme.colorScheme.primary, width: 1)
-            : null,
+        border: isborderall ?? false ? Border.all(color: Get.theme.colorScheme.primary, width: 1) : null,
         //     : null,
         // ignore: prefer_const_literals_to_create_immutables
         boxShadow: [
@@ -528,8 +512,7 @@ class DefaultCountainer extends StatelessWidget {
 }
 
 class BorderCoverWidget extends StatelessWidget {
-  const BorderCoverWidget(
-      {super.key, required this.child, this.label, this.colorBorder});
+  const BorderCoverWidget({super.key, required this.child, this.label, this.colorBorder});
   final Widget child;
   final String? label;
   final Color? colorBorder;
@@ -540,10 +523,7 @@ class BorderCoverWidget extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(top: 10),
           padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              border: Border.all(
-                  color: colorBorder ?? Get.theme.colorScheme.primary),
-              borderRadius: BorderRadius.circular(15)),
+          decoration: BoxDecoration(border: Border.all(color: colorBorder ?? Get.theme.colorScheme.primary), borderRadius: BorderRadius.circular(15)),
           child: child,
         ),
         if (label != null)
@@ -598,14 +578,9 @@ class DefaultCountainerExtension extends StatelessWidget {
       padding: padding,
       //  width: MediaQuery.of(context).size.width / 2 + 50,
       decoration: BoxDecoration(
-        borderRadius: borderRadiusSpecific ??
-            (borderRadius != null
-                ? BorderRadius.circular(borderRadius!)
-                : null),
+        borderRadius: borderRadiusSpecific ?? (borderRadius != null ? BorderRadius.circular(borderRadius!) : null),
         color: color,
-        border: isborderall ?? false
-            ? Border.all(color: Get.theme.colorScheme.primary, width: 1)
-            : null,
+        border: isborderall ?? false ? Border.all(color: Get.theme.colorScheme.primary, width: 1) : null,
         // ignore: prefer_const_literals_to_create_immutables
         // boxShadow:isBoxShadow??false?  [
         //   BoxShadow(
@@ -620,9 +595,9 @@ class DefaultCountainerExtension extends StatelessWidget {
   }
 }
 
-DateTimePicker defaultDataTimePicker({
+SfDateRangePicker defaultDataTimePicker({
   Widget? label,
-  Function(String)? onChanged,
+  void Function(DateRangePickerSelectionChangedArgs)? onChanged,
   bool isborderall = false,
   Color enableBorderColor = DefaultColor.primaryColor,
   Color facaColor = DefaultColor.sencondreColor,
@@ -632,58 +607,58 @@ DateTimePicker defaultDataTimePicker({
   ),
   EdgeInsetsGeometry? contentPadding,
 }) {
-  return DateTimePicker(
-    style: TextStyle(fontSize: defaultSizeFont),
-    onChanged: onChanged,
-    decoration: InputDecoration(
+  return SfDateRangePicker(
+    // style: TextStyle(fontSize: defaultSizeFont),
+    onSelectionChanged: onChanged,
+    // decoration: InputDecoration(
 
-        //filled: true,
-        contentPadding: contentPadding,
-        enabledBorder: isborderall
-            ? OutlineInputBorder(
-                borderSide: BorderSide(
-                  width: 1.0,
-                  color: enableBorderColor,
-                ),
-                borderRadius: BorderRadius.circular(10),
-              )
-            : UnderlineInputBorder(
-                borderSide: BorderSide(
-                  width: 1.0,
-                  color: enableBorderColor,
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-        focusedBorder: isborderall
-            ? OutlineInputBorder(
-                borderSide: BorderSide(
-                  width: 1.0,
-                  color: facaColor,
-                ),
-                borderRadius: BorderRadius.circular(10),
-              )
-            : UnderlineInputBorder(
-                borderSide: BorderSide(
-                  width: 1.0,
-                  color: facaColor,
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-        label: label,
-        hintStyle: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-        ),
-        suffixIcon: suffixIcon),
+    //     //filled: true,
+    //     contentPadding: contentPadding,
+    //     enabledBorder: isborderall
+    //         ? OutlineInputBorder(
+    //             borderSide: BorderSide(
+    //               width: 1.0,
+    //               color: enableBorderColor,
+    //             ),
+    //             borderRadius: BorderRadius.circular(10),
+    //           )
+    //         : UnderlineInputBorder(
+    //             borderSide: BorderSide(
+    //               width: 1.0,
+    //               color: enableBorderColor,
+    //             ),
+    //             borderRadius: BorderRadius.circular(10),
+    //           ),
+    //     focusedBorder: isborderall
+    //         ? OutlineInputBorder(
+    //             borderSide: BorderSide(
+    //               width: 1.0,
+    //               color: facaColor,
+    //             ),
+    //             borderRadius: BorderRadius.circular(10),
+    //           )
+    //         : UnderlineInputBorder(
+    //             borderSide: BorderSide(
+    //               width: 1.0,
+    //               color: facaColor,
+    //             ),
+    //             borderRadius: BorderRadius.circular(10),
+    //           ),
+    //     label: label,
+    //     hintStyle: const TextStyle(
+    //       fontSize: 12,
+    //       fontWeight: FontWeight.bold,
+    //     ),
+    //     suffixIcon: suffixIcon),
 
-    type: DateTimePickerType.date,
-    dateMask: 'd /M /yyyy',
-    initialValue: DateTime.now().toString(),
-    firstDate: DateTime.now(),
-    //decoration: InputDecoration(),
-    lastDate: DateTime(2100),
-    icon: const Icon(Icons.event),
-    dateLabelText: 'تاريخ الغادره',
+    // type: DateTimePickerType.date,
+    // dateMask: 'd /M /yyyy',
+    // initialValue: DateTime.now().toString(),
+    // firstDate: DateTime.now(),
+    // //decoration: InputDecoration(),
+    // lastDate: DateTime(2100),
+    // icon: const Icon(Icons.event),
+    // dateLabelText: 'تاريخ الغادره',
     selectableDayPredicate: (date) {
       // Disable weekend days to select from the calendar
       if (date.weekday == 6 || date.weekday == 7) {
@@ -693,10 +668,7 @@ DateTimePicker defaultDataTimePicker({
       return true;
     },
 
-    validator: (val) {
-      return null;
-    },
-    onSaved: (val) {},
+    onSubmit: (val) {},
   );
 }
 
@@ -749,12 +721,7 @@ class MyBottomNavigationBar extends StatelessWidget {
 }
 
 class MyBottomNavigationBarUpdate extends StatelessWidget {
-  MyBottomNavigationBarUpdate(
-      {this.onItemSelected,
-      this.controller,
-      this.items,
-      super.key,
-      required this.screens});
+  MyBottomNavigationBarUpdate({this.onItemSelected, this.controller, this.items, super.key, required this.screens});
   void Function(int)? onItemSelected;
 
   final List<Widget> screens;
@@ -763,8 +730,7 @@ class MyBottomNavigationBarUpdate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
-      decoration:
-          NavBarDecoration(colorBehindNavBar: Get.theme.colorScheme.secondary),
+      decoration: NavBarDecoration(colorBehindNavBar: Get.theme.colorScheme.secondary),
       onItemSelected: onItemSelected,
       context,
       screens: screens,
@@ -788,13 +754,7 @@ class DefaultIcon extends StatelessWidget {
   late AlignmentGeometry alignment;
   late BoxFit fit;
   DefaultIcon.svg(
-      {super.key,
-      required this.path,
-      this.height,
-      this.width,
-      this.fit = BoxFit.contain,
-      this.alignment = Alignment.center,
-      this.color}) {
+      {super.key, required this.path, this.height, this.width, this.fit = BoxFit.contain, this.alignment = Alignment.center, this.color}) {
     _isSvg = true;
   }
   @override
@@ -859,14 +819,10 @@ Widget defaultDropDownForm(
               decoration: InputDecoration(
                   helperText: helpText,
                   contentPadding: const EdgeInsets.all(8.0),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide:
-                          BorderSide(width: 1, color: enableBorderColor)),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide:
-                          BorderSide(width: 1, color: focuseBorderColor))),
+                  enabledBorder:
+                      OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide(width: 1, color: enableBorderColor)),
+                  focusedBorder:
+                      OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide(width: 1, color: focuseBorderColor))),
               value: value,
               items: dataList!
                   .map((e) => DropdownMenuItem<dynamic>(
@@ -884,24 +840,25 @@ Widget defaultDropDownForm(
 }
 
 class DefaultDataTimePickerWidget extends StatelessWidget {
-  DefaultDataTimePickerWidget(
-      {super.key,
-      this.contentPadding,
-      this.enableBorderColor,
-      this.label,
-      this.dateLabelText,
-      this.suffixIcon,
-      this.lastDate,
-      this.firstDate,
-      this.cancelText,
-      this.calendarTitle,
-      this.confirmText,
-      this.initialDate,
-      required this.isborderall,
-      this.focuseColor,
-      this.validator,
-      this.onChanged,
-      this.type});
+  DefaultDataTimePickerWidget({
+    super.key,
+    this.contentPadding,
+    this.enableBorderColor,
+    this.label,
+    this.dateLabelText,
+    this.suffixIcon,
+    this.lastDate,
+    this.firstDate,
+    this.cancelText,
+    this.calendarTitle,
+    this.confirmText,
+    this.initialDate,
+    required this.isborderall,
+    this.focuseColor,
+    this.validator,
+    this.onChanged,
+    // this.type
+  });
   Function(String)? onChanged;
   EdgeInsetsGeometry? contentPadding;
   bool isborderall;
@@ -917,89 +874,88 @@ class DefaultDataTimePickerWidget extends StatelessWidget {
   String? confirmText;
   String? cancelText;
   String? Function(String?)? validator;
-  final DateTimePickerType? type;
+  // final DateTimePickerType? type;
   @override
   Widget build(BuildContext context) {
-    return DateTimePicker(
-      cancelText: cancelText,
-      // locale: const Locale('ar'),
+    return SfDateRangePicker(
+        // cancelText: cancelText,
+        // // locale: const Locale('ar'),
 
-      calendarTitle: calendarTitle,
-      confirmText: confirmText,
-      initialDate: initialDate,
-      initialTime: TimeOfDay.now(),
-      style: Get.textTheme.headlineMedium,
-      onChanged: onChanged,
-      decoration: InputDecoration(
-          labelStyle: Get.textTheme.headlineMedium,
-          //filled: true,
-          contentPadding: contentPadding,
-          enabledBorder: isborderall
-              ? OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 1.0,
-                    color: enableBorderColor ?? Get.theme.colorScheme.primary,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                )
-              : UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 1.0,
-                    color: enableBorderColor ?? Get.theme.colorScheme.primary,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-          focusedBorder: isborderall
-              ? OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 1.0,
-                    color: focuseColor ?? Colors.black,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                )
-              : UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 1.0,
-                    color: focuseColor ?? Colors.black,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-          label: label,
-          hintStyle: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-          ),
-          suffixIcon: suffixIcon ??
-              Icon(
-                Icons.event,
-                color: Get.theme.colorScheme.primary,
-              )),
-      use24HourFormat: false,
+        // calendarTitle: calendarTitle,
+        // confirmText: confirmText,
+        // initialDate: initialDate,
+        // initialTime: TimeOfDay.now(),
+        // style: Get.textTheme.headlineMedium,
+        // onChanged: onChanged,
+        // decoration: InputDecoration(
+        //     labelStyle: Get.textTheme.headlineMedium,
+        //     //filled: true,
+        //     contentPadding: contentPadding,
+        //     enabledBorder: isborderall
+        //         ? OutlineInputBorder(
+        //             borderSide: BorderSide(
+        //               width: 1.0,
+        //               color: enableBorderColor ?? Get.theme.colorScheme.primary,
+        //             ),
+        //             borderRadius: BorderRadius.circular(10),
+        //           )
+        //         : UnderlineInputBorder(
+        //             borderSide: BorderSide(
+        //               width: 1.0,
+        //               color: enableBorderColor ?? Get.theme.colorScheme.primary,
+        //             ),
+        //             borderRadius: BorderRadius.circular(10),
+        //           ),
+        //     focusedBorder: isborderall
+        //         ? OutlineInputBorder(
+        //             borderSide: BorderSide(
+        //               width: 1.0,
+        //               color: focuseColor ?? Colors.black,
+        //             ),
+        //             borderRadius: BorderRadius.circular(10),
+        //           )
+        //         : UnderlineInputBorder(
+        //             borderSide: BorderSide(
+        //               width: 1.0,
+        //               color: focuseColor ?? Colors.black,
+        //             ),
+        //             borderRadius: BorderRadius.circular(10),
+        //           ),
+        //     label: label,
+        //     hintStyle: const TextStyle(
+        //       fontSize: 12,
+        //       fontWeight: FontWeight.bold,
+        //     ),
+        //     suffixIcon: suffixIcon ??
+        //         Icon(
+        //           Icons.event,
+        //           color: Get.theme.colorScheme.primary,
+        //         )),
+        // use24HourFormat: false,
 
-      type: type ?? DateTimePickerType.date,
-      dateMask: type != null ? null : 'd /M /yyyy',
-      // initialValue: '',
-      firstDate: firstDate ?? DateTime(1900),
-      //decoration: InputDecoration(),
-      lastDate:
-          lastDate ?? DateUtils.addMonthsToMonthDate(DateTime.now(), 12 * 20),
-      icon: Icon(
-        Icons.lock_clock,
-        color: Get.theme.colorScheme.primary,
-      ),
-      dateLabelText: dateLabelText,
-      // selectableDayPredicate: (date) ~{
+        // type: type ?? DateTimePickerType.date,
+        // dateMask: type != null ? null : 'd /M /yyyy',
+        // // initialValue: '',
+        // firstDate: firstDate ?? DateTime(1900),
+        // //decoration: InputDecoration(),
+        // lastDate: lastDate ?? DateUtils.addMonthsToMonthDate(DateTime.now(), 12 * 20),
+        // icon: Icon(
+        //   Icons.lock_clock,
+        //   color: Get.theme.colorScheme.primary,
+        // ),
+        // dateLabelText: dateLabelText,
+        // // selectableDayPredicate: (date) ~{
 
-      //   if (date.weekday == 6 || date.weekday == 7) {
-      //     return false;
-      //   }
+        // //   if (date.weekday == 6 || date.weekday == 7) {
+        // //     return false;
+        // //   }
 
-      //   return true;
-      // },
+        // //   return true;
+        // // },
 
-      validator: validator,
-      onSaved: (val) {},
-    );
+        // validator: validator,
+        // onSaved: (val) {},
+        );
   }
 }
 
@@ -1015,7 +971,7 @@ class DefaultTimePickerWidget extends StatelessWidget {
       this.validator,
       this.onChanged,
       this.onSaved,
-      this.type,
+      // this.type,
       this.hintText});
   final Function(String)? onChanged;
   final EdgeInsetsGeometry? contentPadding;
@@ -1028,69 +984,69 @@ class DefaultTimePickerWidget extends StatelessWidget {
   final String? hintText;
   final String? Function(String?)? validator;
   final void Function(String?)? onSaved;
-  final DateTimePickerType? type;
+  // final DateTimePickerType? type;
   @override
   Widget build(BuildContext context) {
-    return DateTimePicker(
-      initialTime: TimeOfDay.now(),
-      style: Get.textTheme.headlineMedium,
-      // timePickerEntryModeInput: f,
-      locale: Locale('en'),
-      onChanged: onChanged,
-//  textInputAction:TextInputAction.done,
-      // dateMask: 'h:mm a',
-      timeFieldWidth: 50,
-      decoration: InputDecoration(
-          hintText: hintText,
-          labelStyle: Get.textTheme.headlineMedium,
-          contentPadding: contentPadding,
-          enabledBorder: isborderall
-              ? OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 1.0,
-                    color: enableBorderColor ?? Get.theme.colorScheme.primary,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                )
-              : UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 1.0,
-                    color: enableBorderColor ?? Get.theme.colorScheme.primary,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-          focusedBorder: isborderall
-              ? OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 1.0,
-                    color: focuseColor ?? Colors.black,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                )
-              : UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 1.0,
-                    color: focuseColor ?? Colors.black,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-          label: label,
-          hintStyle: Get.textTheme.displaySmall,
-          suffixIcon: suffixIcon ??
-              Icon(
-                Icons.lock_clock,
-                color: Get.theme.colorScheme.primary,
-              )),
-      use24HourFormat: false,
-      type: DateTimePickerType.time,
-      icon: Icon(
-        Icons.lock_clock,
-        color: Get.theme.colorScheme.primary,
-      ),
-      validator: validator,
-      onSaved: onSaved,
-      // onFieldSubmitted:onFieldSubmitted ,
-    );
+    return SfDateRangePicker(
+//       initialTime: TimeOfDay.now(),
+//       style: Get.textTheme.headlineMedium,
+//       // timePickerEntryModeInput: f,
+//       locale: Locale('en'),
+//       onChanged: onChanged,
+// //  textInputAction:TextInputAction.done,
+//       // dateMask: 'h:mm a',
+//       timeFieldWidth: 50,
+//       decoration: InputDecoration(
+//           hintText: hintText,
+//           labelStyle: Get.textTheme.headlineMedium,
+//           contentPadding: contentPadding,
+//           enabledBorder: isborderall
+//               ? OutlineInputBorder(
+//                   borderSide: BorderSide(
+//                     width: 1.0,
+//                     color: enableBorderColor ?? Get.theme.colorScheme.primary,
+//                   ),
+//                   borderRadius: BorderRadius.circular(10),
+//                 )
+//               : UnderlineInputBorder(
+//                   borderSide: BorderSide(
+//                     width: 1.0,
+//                     color: enableBorderColor ?? Get.theme.colorScheme.primary,
+//                   ),
+//                   borderRadius: BorderRadius.circular(10),
+//                 ),
+//           focusedBorder: isborderall
+//               ? OutlineInputBorder(
+//                   borderSide: BorderSide(
+//                     width: 1.0,
+//                     color: focuseColor ?? Colors.black,
+//                   ),
+//                   borderRadius: BorderRadius.circular(10),
+//                 )
+//               : UnderlineInputBorder(
+//                   borderSide: BorderSide(
+//                     width: 1.0,
+//                     color: focuseColor ?? Colors.black,
+//                   ),
+//                   borderRadius: BorderRadius.circular(10),
+//                 ),
+//           label: label,
+//           hintStyle: Get.textTheme.displaySmall,
+//           suffixIcon: suffixIcon ??
+//               Icon(
+//                 Icons.lock_clock,
+//                 color: Get.theme.colorScheme.primary,
+//               )),
+//       use24HourFormat: false,
+//       type: DateTimePickerType.time,
+//       icon: Icon(
+//         Icons.lock_clock,
+//         color: Get.theme.colorScheme.primary,
+//       ),
+//       validator: validator,
+//       onSaved: onSaved,
+//       // onFieldSubmitted:onFieldSubmitted ,
+        );
   }
 }
 
@@ -1111,8 +1067,7 @@ Widget selectTypeFiledWidget(MainRequirment main) {
 }
 
 class DefaultImagePicker extends StatelessWidget {
-  DefaultImagePicker(
-      {super.key, this.icon, required this.main, required this.onTap});
+  DefaultImagePicker({super.key, this.icon, required this.main, required this.onTap});
   Widget? icon;
   Function()? onTap;
   dynamic main;
@@ -1183,13 +1138,7 @@ Row itemIsFamilyWidget(controller) {
 }
 
 class DefaultRadioList extends StatelessWidget {
-  DefaultRadioList(
-      {Key? key,
-      required this.data,
-      this.titleText,
-      required this.onChanged,
-      required this.groupValue})
-      : super(key: key);
+  DefaultRadioList({Key? key, required this.data, this.titleText, required this.onChanged, required this.groupValue}) : super(key: key);
   String? titleText;
   dynamic groupValue;
   Function(dynamic)? onChanged;
@@ -1232,8 +1181,7 @@ class DefaultRadioList extends StatelessWidget {
 }
 
 class DefaultFilePicker extends StatelessWidget {
-  DefaultFilePicker(
-      {super.key, this.icon, required this.main, required this.onTap});
+  DefaultFilePicker({super.key, this.icon, required this.main, required this.onTap});
   Widget? icon;
   Function()? onTap;
   dynamic main;
@@ -1254,8 +1202,7 @@ class DefaultFilePicker extends StatelessWidget {
 }
 
 class FilePickerApp extends StatelessWidget {
-  FilePickerApp(
-      {super.key, this.icon, required this.main, required this.onTap});
+  FilePickerApp({super.key, this.icon, required this.main, required this.onTap});
   Widget? icon;
   Function()? onTap;
   dynamic main;
